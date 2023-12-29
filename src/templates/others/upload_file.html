@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+
+{% block app_content %}
+<div class="container py-5">
+    <h4>Загрузка файла на сервер</h4>
+    <form method="post" enctype=multipart/form-data>
+      <div class="mb-3">
+        <input type=file class="form-control" name=file required>
+      </div>
+      <div class="text-center">
+        <button type=submit value=Upload class="btn btn-primary">Загрузить</button>
+     </div>
+    </form>
+</div>
+{% endblock %}

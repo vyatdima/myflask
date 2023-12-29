@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block app_content %}
+{#<p><a href="{{ url_for('uploaded_file',filename='IMG20231202130454.jpg') }}">IMG20231202130454.jpg</a></p>#}
+{#<p><a href="{{ url_for('upload_file') }}">Загрузить файл</a></p>#}
+
+<div class="container">
+    <p>Случайные фото:</p>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        {{ macros.slider(slider_index, 2000) }}
+    </div>
+    <div class="col-lg-4"></div>
+</div>
+<hr>
+{{ macros.list_events_card(list_events_new, 'Будущие соревнования:') }}
+<hr>
+{{ macros.list_events_card(list_events_old, 'Прошедшие соревнования:') }}
+<div class="container">
+    <p>Список организаторов:</p>
+    {{ macros.macro_list_organizers(list_organizers) }}
+</div>
+<div class="container">
+    {% if current_user.is_authenticated and current_user.is_admin %}
+    <p>Список пользователей:</p>
+        {{ macros.macro_list_users(list_users) }}
+    {% endif %}
+</div>
+{% endblock %}

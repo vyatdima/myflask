@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block app_content %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">{{ page.title }}</h1>
+        <div class="row mt-5">
+        {% if page.page_body != 'None' %}
+            <p class="card-text">
+                {% autoescape false %}
+                    {{ page.page_body }}
+                {% endautoescape %}
+            </p>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,152 @@
+{% macro slider_prost(list_item,h_title) %}
+    {% if h_title %}
+        <p>{{ h_title }}</p>
+    {% endif %}
+    {% for item in list_item %}
+        {% if item.filename %}
+            <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" >
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro slider(list_item, time_slide) %}
+<div class="row">
+    <div class="col-lg-12 col-md-6 mb-4">
+      <div id="carousel-generic" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          {% for item in list_item %}
+            {% if item.filename %}
+              <button type="button" data-bs-target="#carousel-generic" data-bs-slide-to="{{ loop.index0 }}" {% if loop.index == 1 %}class="active"{% endif %} aria-current="true" aria-label="Слайд {{ loop.index }}"></button>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="carousel-inner">
+          {% for item in list_item %}
+            {% if item.filename %}
+              <div class="carousel-item {% if loop.index == 1 %}active{% endif %}" data-bs-interval="{{ time_slide }}}">
+                <img src="{{ url_for('static', filename='uploads/' + item.filename) }}" class="d-block w-100" alt="{{loop.index}}">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>{{ item.title }}</h5>
+                </div>
+              </div>
+            {% else %}
+              <h4>no {{item.filename}}</h4>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-generic" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Prev</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel-generic" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro list_events_card(list_events,h_title) %}
+    <div class="container mt-3">
+        <div class="row">
+            <p>{{ h_title }}</p>
+        </div>
+        <div class="row">
+            {% for item in list_events %}
+                <div class="col-lg-3 col-md-4 mb-2">
+                    <div class="card">
+                        <div class="card-header">
+                            {% if item.logo %}
+                                <a href="{{ url_for('event',event_id=item.id) }}">
+                                    <img class="card-img-top" src="{{ url_for('static', filename='uploads/' + item.logo) }}" >
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                <a href="{{ url_for('event',event_id=item.id) }}" class="card-link">{{ item.title }}</a>
+                            </h5>
+                            <p class="card-subtitle mb-2 text-muted">
+                                {% if item.event_date %} {{item.event_date.strftime('%d.%m.%Y') }}{% else %}{{ item.event_date }} {% endif %}
+                            </p>
+                            <p class="card-text">
+                                {% if item.link_geoposition %}
+                                    <a href="{{ item.link_geoposition }}" target="_blank">
+                                {% endif %}
+                                {{ item.tip_event }} {{ item.len_dist }} км
+                                {% if item.link_geoposition %}
+                                    </a>
+                                {% endif %}
+                                <br>
+                                {{ item.location.title }}
+                            </p>
+                        </div>
+                        <div class="card-footer text-muted">
+                        {% if item.organizer.logo %}
+                            <a href="{{ item.organizer.link }}" target="_blank">
+                                <img class="card-img-left" src="{{ url_for('static', filename='uploads/' + item.organizer.logo) }}" height="50">
+                            </a>
+                        {% endif %}
+                        <p class="card-text text-center">
+                            <a href="{{ item.organizer.link }}" class="card-link" target="_blank">
+                                {{ item.organizer.title }}
+                            </a>
+                        </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro list_events_table(list_events) %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in list_events %}
+                <tr>
+                    <td width="50">
+                        {% if item.logo %}
+                            <a href="{{ url_for('event',event_id=item.id) }}">
+                                <img src="{{ url_for('static', filename='uploads/' + item.logo) }}" height="100">
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if item.event_date %} {{item.event_date.strftime('%d.%m.%Y') }}{% else %}{{ item.event_date }} {% endif %}
+                        <a href="{{ url_for('event',event_id=item.id) }}">{{ item.title }}</a>
+                        <br>({{ item.len_dist }} км, {{ item.location.title }})
+                        <br>
+                        {% if item.organizer.logo %}
+                            <a href="{{ item.organizer.link }}">
+                                <img src="{{ url_for('static', filename='uploads/' + item.organizer.logo) }}" height="50">
+                            </a>
+                        {% endif %}
+                         {{ item.organizer.title }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endmacro %}
+
+{% macro macro_list_users(list_users) %}
+    <ul>
+    {% for item in list_users %}
+        <li>{{ item.name }} ({{ item.email }}{% if item.is_admin %}, <b>админ</b>{% endif %}) </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% macro macro_list_organizers(list_organizers) %}
+    <ul>
+    {% for item in list_organizers %}
+        <li>{{ item.title }} </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}

@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Мероприятия{% endblock %}
+
+{% block app_content %}
+<p><a href="{{ url_for('adminka') }}">На админку</a></p>
+    <div class="container py-5">
+    <h1 class="mb-5">Все мероприятия</h1>
+    <a href="{{ url_for('add_event') }}" class="btn btn-primary mb-3">Добавить</a>
+    <a href="{{ url_for('add_event_from_csv') }}" class="btn btn-primary mb-3">Добавить из файла</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in list %}
+            <tr>
+                <td>{% if item.event_date %} {{item.event_date.strftime('%d.%m.%Y') }}{% else %}{{ item.event_date }} {% endif %}</td>
+                <td>{{ item.title }}</td>
+                <td>
+                    {% if item.logo %}
+                    <img src="{{ url_for('static', filename='uploads/' + item.logo) }}" width="40">
+                    {% endif %}
+                </td>
+                <td>{{ item.location.title }}</td>
+                <td>
+                    {% if item.organizer.logo %}
+                    <img src="{{ url_for('static', filename='uploads/' + item.organizer.logo) }}" width="40">
+                    {% endif %}
+                </td>
+                <td>{{ item.len_dist }} км</td>
+                <td>{{ item.time_result }}</td>
+                <td>
+                    <a href="{{ url_for('edit_event', id=item.id) }}" class="btn btn-sm btn-primary mx-1">Редактировать</a>
+                    <form method="post" action="{{ url_for('del_event', id=item.id) }}" style="display: inline">
+                        <button type="submit" class="btn btn-sm btn-danger mx-1">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<p><a href="{{ url_for('adminka') }}">На админку</a></p>
+{% endblock %}

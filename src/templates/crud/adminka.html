@@ -1,0 +1,19 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Админка{% endblock %}
+
+{% block app_content %}
+<p><a href="{{ url_for('index') }}">На главную</a></p>
+    <div class="container py-5">
+    <ul>
+    <li><a href="{{ url_for('sitefiles') }}">Файлы</a></li>
+    <li><a href="{{ url_for('pages') }}">Страницы</a></li>
+    <li><a href="{{ url_for('organizers') }}">Организаторы</a></li>
+    <li><a href="{{ url_for('locations') }}">Локации</a></li>
+    <li><a href="{{ url_for('events') }}">Мероприятия</a></li>
+    <li><a href="{{ url_for('users') }}">Users</a></li>
+    </ul>
+    <p><a href="{{ url_for('upload_file') }}">Загрузить файл</a></p>
+</div>
+<p><a href="{{ url_for('index') }}">На главную</a></p>
+{% endblock %}

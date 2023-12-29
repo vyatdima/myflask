@@ -1,0 +1,41 @@
+body {
+    padding-top: 5px;
+}
+
+.fig {
+display: block; /* Блочный элемент (для старых браузеров) */
+text-align: center; /* Выравнивание по центру */
+font-style: italic; /* Курсивное начертание */
+margin-top: 0; /* Отступ сверху */
+margin-bottom: 5px; /* Отступ снизу */
+color: #666; /* Цвет подрисуночной подписи */
+}
+
+figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+figcaption {
+  padding-bottom: 8px;
+  margin-bottom: 25px;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  font-style: italic;
+  text-align: center;
+}
+
+.figure-img {
+  display: block;
+  margin: 0 auto;
+  border-width : 1px;
+}
+
+p {
+    text-indent: 20px; /* Отступ первой строки в пикселах */
+   }
+
+h5 {
+  text-align: center;
+}
+

@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+{% block title %}event {{ event.id }}{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div><a href="{{ url_for('events') }}"><h5>Назад</h5></a></div>
+    <h3 class="text-center">Изменение данных по событию</h3>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-danger">
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="{{ url_for('edit_event', id=event.id) }}" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="title" class="form-label">Наименование:</label>
+        <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}" required>
+      </div>
+      <div class="mb-3">
+        <label for="tip_event" class="form-label">Тип:</label>
+        <input type="text" class="form-control" id="tip_event" name="tip_event" value="{{ event.tip_event }}">
+      </div>
+      <div class="mb-3">
+        <label for="img" class="form-label">Логотип:</label>
+        {% if event.logo %}
+            <img src="{{ url_for('static', filename='uploads/' + event.logo) }}" width="100">
+            <input type="text" id="logo" name="logo" value="{{ event.logo }}" disabled>
+        {% endif %}
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="delete_logo" name="delete_logo">
+          <label class="form-check-label" for="delete_logo">Удалить логотип</label>
+        </div>
+        <input type="file" class="form-control" id="img" name="img" value="{{ event.logo }}">
+      </div>
+      <div class="mb-3">
+        <label for="event_date" class="form-label">Дата:</label>
+        <input type="date" class="form-control" id="event_date" name="event_date" value="{{ event.event_date }}" required>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Локация:</label>
+        <select class="custom-select" name="location" id="location" value="{{ event.location }}">
+          <option>Выбрать...</option>
+          {% for item in locations %}
+              <option {% if item.id == event.location.id %}selected{% endif %} value="{{ item.id }}">{{ item.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="link_geoposition" class="form-label">Геопозиция:</label>
+        <input type="url" class="form-control" id="link_geoposition" name="link_geoposition" value="{{ event.link_geoposition }}">
+      </div>
+      <div class="mb-3">
+        <label for="organizer" class="form-label">Организатор:</label>
+        <select class="custom-select" name="organizer" id="organizer" value="{{ event.organizer }}">
+          <option>Выбрать...</option>
+          {% for item in organizers %}
+              <option {% if item.id == event.organizer.id %}selected{% endif %} value="{{ item.id }}">{{ item.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="len_dist" class="form-label">Дистанция:</label>
+        <input type="number" class="form-control" id="len_dist" name="len_dist" value="{{ event.len_dist }}">
+      </div>
+      <div class="mb-3">
+        <label for="time_result" class="form-label">Результат:</label>
+        <input type="time" class="form-control" id="time_result" name="time_result" value="{{ event.time_result }}">
+      </div>
+      <div class="mb-3">
+        <label for="link_event" class="form-label">Ссылка:</label>
+        <input type="url" class="form-control" id="link_event" name="link_event" value="{{ event.link_event }}">
+      </div>
+      <div class="mb-3">
+        <label for="link_protokol" class="form-label">Протокол результатов:</label>
+        <input type="url" class="form-control" id="link_protokol" name="link_protokol" value="{{ event.link_protokol }}">
+      </div>
+      <div class="mb-3">
+        <label for="my_review" class="form-label">Мой обзор:</label>
+        <textarea class="form-control" id="my_review" name="my_review" rows="5" value="{{ event.my_review }}">{{ event.my_review }}</textarea>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+      </div>
+      <div><a href="{{ url_for('events') }}"><h5>Назад</h5></a></div>
+     </form>
+</div>
+{% endblock %}

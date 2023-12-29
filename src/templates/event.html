@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+
+{% block title %}event {{ event.id }}{% endblock %}
+
+{% block app_content %}
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">{{tip_event}} {{ event.title }}</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-4 col-md-2 mb-2">
+                {% if event.logo %}
+                 <img src="{{ url_for('static', filename='uploads/' + event.logo) }}" height="300" >
+                {% endif %}
+             </div>
+            <div class="col-lg-8 col-md-2 mb-2">
+                <p class="card-subtitle mb-2 text-muted">
+                    {% if event.event_date %} {{event.event_date.strftime('%d.%m.%Y') }}{% else %}{{ event.event_date }} {% endif %}
+                    {{ event.location.title }}
+                </p>
+                <p class="card-text">
+                    {% if event.link_geoposition %}
+                        <a href="{{ event.link_geoposition }}" target="_blank">
+                    {% endif %}
+                    {{ event.tip_event }} {{ event.len_dist }} километров.
+                    {% if event.link_geoposition %}
+                        </a>
+                    {% endif %}
+                     Время {{ event.time_result}}
+                    <br>
+                    <a href="{{event.link_event}}" target="_blank">Подробная информация</a>
+                    <br>
+                    <a href="{{event.link_protokol}}" target="_blank">Все результаты</a>
+                </p>
+                {% if event.organizer.logo %}
+                    <a href="{{ event.organizer.link }}" target="_blank">
+                        <img class="card-img-left" src="{{ url_for('static', filename='uploads/' + event.organizer.logo) }}" height="150">
+                    </a>
+                {% endif %}
+                <p class="card-text">
+                    <a href="{{ event.organizer.link }}" class="card-link" target="_blank">
+                        {{ event.organizer.title }}
+                    </a>
+                </p>
+            </div>
+        </div>
+        {% if event.my_review != 'None' %}
+            <p class="card-text">
+                {% autoescape false %}
+                    {{ event.my_review }}
+                {% endautoescape %}
+            </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

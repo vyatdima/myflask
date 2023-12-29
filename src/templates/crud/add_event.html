@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center">Добавить запись</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-danger">
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="{{ url_for('add_event') }}" enctype="multipart/form-data">
+       <div class="mb-3">
+        <label for="title" class="form-label">Наименование:</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+      </div>
+       <div class="mb-3">
+        <label for="tip_event" class="form-label">Тип:</label>
+        <input type="text" class="form-control" id="tip_event" name="tip_event">
+      </div>
+      <div class="mb-3">
+        <label for="img" class="form-label">Логотип:</label>
+        <input type="file" class="form-control" id="img" name="img">
+      </div>
+      <div class="mb-3">
+        <label for="event_date" class="form-label">Дата:</label>
+        <input type="date" class="form-control" id="event_date" name="event_date" required>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Локация:</label>
+        <select class="custom-select" name="location" id="location" >
+          <option>Выбрать...</option>
+          {% for item in locations %}
+              <option value="{{ item.id }}">{{ item.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="link_geoposition" class="form-label">Геопозиция:</label>
+        <input type="url" class="form-control" id="link_geoposition" name="link_geoposition" >
+      </div>
+      <div class="mb-3">
+        <label for="organizer" class="form-label">Организатор:</label>
+        <select class="custom-select" name="organizer" id="organizer" >
+          <option>Выбрать...</option>
+          {% for item in organizers %}
+              <option value="{{ item.id }}">{{ item.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="len_dist" class="form-label">Дистанция:</label>
+        <input type="number" class="form-control" id="len_dist" name="len_dist" >
+      </div>
+      <div class="mb-3">
+        <label for="time_result" class="form-label">Результат:</label>
+        <input type="time" class="form-control" id="time_result" name="time_result" >
+      </div>
+      <div class="mb-3">
+        <label for="link_event" class="form-label">Ссылка:</label>
+        <input type="url" class="form-control" id="link_event" name="link_event" >
+      </div>
+      <div class="mb-3">
+        <label for="link_protokol" class="form-label">Протокол результатов:</label>
+        <input type="url" class="form-control" id="link_protokol" name="link_protokol" >
+      </div>
+      <div class="mb-3">
+        <label for="my_review" class="form-label">Мой обзор:</label>
+        <textarea class="form-control" id="my_review" name="my_review" rows="5"></textarea>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Добавить</button>
+      </div>
+    </form>
+</div>
+{% endblock %}

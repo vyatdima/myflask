@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="container py-5">
+    <h1 class="text-center">Добавить запись</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-danger">
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+    <form method="post" action="{{ url_for('add_organizer') }}" enctype="multipart/form-data">
+       <div class="mb-3">
+        <label for="title" class="form-label">Наименование:</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+      </div>
+      <div class="mb-3">
+        <label for="img" class="form-label">Логотип:</label>
+        <input type="file" class="form-control" id="img" name="img">
+      </div>
+       <div class="mb-3">
+        <label for="link" class="form-label">Ссылка:</label>
+        <input type="link" class="form-control" id="link" name="link">
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Добавить</button>
+      </div>
+    </form>
+</div>
+{% endblock %}

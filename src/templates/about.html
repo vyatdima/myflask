@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Мое резюме{% endblock %}
+
+{% block app_content %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Мое резюме</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Образование</h2>
+                <h4>Вятский Государственный Университет</h4>
+                <p class="mb-0">Инженер-электроник ЭВС</p>
+                <p class="text-muted">1991 - 1996</p>
+            </div>
+            <div class="col-md-6">
+                <h2>Опыт работы</h2>
+                <h4>Главный специалист - Социальный Фонд РФ</h4>
+                <p class="mb-0">2002 - н.в.</p>
+                <p class="text-muted">- Автоматизация рабочих процессов</p>
+                <p class="text-muted">- Работа с Visual Foxpro, AutoIT, Python, Django</p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <h2>Навыки</h2>
+                <ul class="list-group">
+                    <li class="list-group-item border-0 py-1"><i class="fa fa-cog"></i> Visual FoxPro</li>
+                    <li class="list-group-item border-0 py-1"><i class="fa fa-cog"></i> AutoIT</li>
+                    <li class="list-group-item border-0 py-1"><i class="fa fa-cog"></i> Python</li>
+                    <li class="list-group-item border-0 py-1"><i class="fa fa-cog"></i> Django</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h2>Проекты</h2>
+                <h4>Сайт серии мероприятий "Большая прогулка"</h4>
+                <p class="text-muted mb-0">- Разработка сайта с использованием Django</p>
+                <h4>Автоматизация рабочих процессов</h4>
+                <p class="text-muted mb-0">- Разработка и внедрение "кликеров"</p>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <h2>Контакты</h2>
+                <p class="mb-0"><i class="fa fa-phone"></i> Телефон: +79172958991</p>
+                <p class="mb-0"><i class="fa fa-envelope"></i> Email: vyatdima@yandex.ru</p>
+            </div>
+        </div>
+        <p><a href="{{ url_for('index') }}">На главную</a></p>
+    </div>
+{% endblock %}
